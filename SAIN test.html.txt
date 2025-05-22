@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>آزمون اضطراب اجتماعی SAIN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      direction: rtl;
+      background: linear-gradient(to right, #e0ecff, #f0f8ff);
+      color: #333;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 700;
+      color: #00509e;
+    }
+    .question {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 0.75rem 2rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 2rem auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .result {
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+
+<h2>🧠 آزمون اضطراب اجتماعی SAIN</h2>
+<form id="sainForm"></form>
+<div id="result" class="result" style="display:none;"></div>
+
+<script>
+  const questions = [
+    "از صحبت کردن در جمع مضطرب می‌شوم.",
+    "از نگاه دیگران هنگام راه رفتن خجالت می‌کشم.",
+    "وقتی مرکز توجه باشم، دچار اضطراب می‌شوم.",
+    "از رفتن به مهمانی اجتناب می‌کنم.",
+    "در برخورد اول، نگران قضاوت دیگران هستم.",
+    "از صحبت با افراد جدید ترس دارم.",
+    "وقتی کسی نگاهم می‌کند، احساس ناراحتی می‌کنم.",
+    "در موقعیت‌های رسمی مضطرب می‌شوم.",
+    "از پرسیدن سؤال در جمع می‌ترسم.",
+    "ترجیح می‌دهم تنها باشم تا در جمع.",
+    "احساس می‌کنم دیگران مرا مسخره می‌کنند.",
+    "در کلاس یا جلسه از صحبت کردن خودداری می‌کنم.",
+    "از شروع مکالمه با دیگران نگران می‌شوم.",
+    "وقتی کسی به من نگاه کند، مضطرب می‌شوم.",
+    "از معرفی کردن خودم می‌ترسم.",
+    "از حرف زدن با جنس مخالف مضطرب می‌شوم.",
+    "در جمع احساس ناتوانی می‌کنم.",
+    "وقتی باید تلفنی صحبت کنم، نگران می‌شوم.",
+    "از قضاوت شدن توسط دیگران می‌ترسم.",
+    "در گروه‌های اجتماعی احساس راحتی نمی‌کنم."
+  ];
+
+  const form = document.getElementById("sainForm");
+
+  questions.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    div.innerHTML = `
+      <label><strong>${i + 1}. ${q}</strong></label>
+      <select name="q${i}" required>
+        <option value="">-- انتخاب کنید --</option>
+        <option value="1">۱ - کاملاً مخالفم</option>
+        <option value="2">۲ - مخالفم</option>
+        <option value="3">۳ - نظری ندارم</option>
+        <option value="4">۴ - موافقم</option>
+        <option value="5">۵ - کاملاً موافقم</option>
+      </select>
+    `;
+    form.appendChild(div);
+  });
+
+  const btn = document.createElement("button");
+  btn.type = "submit";
+  btn.innerText = "مشاهده نتیجه آزمون";
+  form.appendChild(btn);
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let total = 0;
+    questions.forEach((_, i) => {
+      total += parseInt(form[`q${i}`].value);
+    });
+
+    let interpretation = "";
+    if (total <= 40) {
+      interpretation = "سطح اضطراب اجتماعی شما در محدوده طبیعی قرار دارد. ممکن است گاهی در موقعیت‌های اجتماعی احساس ناراحتی داشته باشید، اما این موضوع برای بیشتر افراد طبیعی است.";
+    } else if (total <= 60) {
+      interpretation = "شما اضطراب اجتماعی متوسطی را تجربه می‌کنید. توصیه می‌شود تمرین‌هایی مانند مواجهه تدریجی با موقعیت‌های اجتماعی را انجام دهید یا با یک روانشناس مشورت کنید.";
+    } else if (total <= 80) {
+      interpretation = "اضطراب اجتماعی شما نسبتاً بالا است. احتمال دارد در بسیاری از موقعیت‌های اجتماعی احساس ناراحتی شدید داشته باشید. استفاده از تکنیک‌های درمانی مانند CBT می‌تواند مفید باشد.";
+    } else {
+      interpretation = "اضطراب اجتماعی شما بسیار شدید است و ممکن است عملکرد روزمره‌تان را مختل کند. حتماً توصیه می‌شود با روانشناس یا روان‌درمانگر متخصص مشورت نمایید.";
+    }
+
+    const result = document.getElementById("result");
+    result.style.display = "block";
+    result.innerHTML = `
+      <p><strong>نمره کل شما: ${total} از 100</strong></p>
+      <p>${interpretation}</p>
+    `;
+  });
+</script>
+
+</body>
+</html>
